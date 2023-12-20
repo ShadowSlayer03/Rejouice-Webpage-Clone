@@ -47,17 +47,33 @@ html,body{
     position: relative;
 }
 
-#cursor{
+#cursor1{
     height: 8vw;
     width: 8vw;
     background-color: #ff5f38; 
     border-radius: 50%;
     position: fixed;
-    z-index: 10;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.15s;
+    opacity: 0;
+}
+
+#cursor2{
+    height: 8vw;
+    width: 8vw;
+    background-color: #0e0e0e;
+    color: #fff; 
+    border-radius: 50%;
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s;
+    opacity: 0;
 }
 
 #page1 video{
@@ -335,6 +351,75 @@ nav h2{
     align-items: center;
     justify-content: center;
     padding-top: 5vw;
+}
+
+#p5-overlay{
+    background-color: #0e0e0e;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 55;
+    display: none;
+}
+
+#p5-overlay button{
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    background-color: #0e0e0e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#p5-overlay button i{
+    font-size: 4vw;
+    color: #fff;
+}
+
+#p5-overlay-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#p5-overlay-text h4{
+    font-size: 2vw;
+    color: #faf8f3;
+}
+
+#p5-overlay-text h1{
+    font-size: 8vw;
+    line-height: 1;
+    color: #faf8f3;
+    letter-spacing: -1px;
+    font-weight: 500;
+}
+
+#p5-overlay-text h1::after {
+    content: "";
+    display: block; /* Make the pseudo-element a block-level element */
+    height: 4px;
+    width: 100%;
+    background-color: #faf8f3; /* Use background-color instead of color for the underline color */
+    transition: width 0.3s ease; /* Add a transition for a smooth effect */
+    position: absolute;
+  }
+
+  #block4{
+    background-color: #000;
+    border: none;
+    outline: none;
+    height: 5px;
+    width: 10%;
+    position: absolute;
+    left: -10%;
+    bottom: -2.5%;
+    transition: all ease-out 0.2s;
 }
 
 #page5 video{
