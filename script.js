@@ -41,34 +41,67 @@ function locoScroll(){
 }
 locoScroll();
 
-// Cursor Effects
-let cursor = document.querySelector("#cursor");
-let page1Content = document.querySelector("#page1-content");
+// Cursor Effects for page1 and page5
+let cursor1 = document.querySelector("#cursor1");
+let cursor2 = document.querySelector("#cursor2");
+let page1 = document.querySelector("#page1");
+let page5 = document.querySelector("#page5");
 
-page1Content.addEventListener('mousemove',(event)=>{
-    gsap.to("#cursor",{
+page1.addEventListener('mousemove',(event)=>{
+    cursor1.style.opacity = 1;
+    gsap.to("#cursor1",{
         x: event.x-50,
         y: event.y-80,
     })
+    cursor1.textContent = "Play Reel";
+    cursor1.style.backgroundColor = "#ff5f38";
 })
 
-page1Content.addEventListener('mouseleave',(event)=>{
-    gsap.to("#cursor",{
+page1.addEventListener('mouseleave',(event)=>{
+    gsap.to("#cursor1",{
         scale: 0,
         rotate: "30deg",
         opacity: 0,
     })
 })
 
-page1Content.addEventListener('mouseenter',(event)=>{
-    gsap.to("#cursor",{
+page1.addEventListener('mouseenter',(event)=>{
+    gsap.to("#cursor1",{
         scale: 1,
         opacity:1,
         rotate: "0deg",
     })
-    cursor.textContent = "Play Reel";
-    cursor.style.backgroundColor = "#ff5f38";
+    cursor1.textContent = "Play Reel";
+    cursor1.style.backgroundColor = "#ff5f38";
 })
+
+page5.addEventListener('mousemove',(event)=>{
+    cursor2.style.opacity = 1;
+    gsap.to("#cursor2",{
+        x: event.x-750,
+        y: event.y-380,
+    })
+})
+
+page5.addEventListener('mouseleave',(event)=>{
+    gsap.to("#cursor2",{
+        scale: 0,
+        rotate: "30deg",
+        opacity: 0,
+    })
+})
+
+page5.addEventListener('mouseenter',(event)=>{
+    gsap.to("#cursor2",{
+        scale: 1,
+        opacity:1,
+        rotate: "0deg",
+    })
+    cursor2.textContent = "Take It!";
+    cursor2.style.backgroundColor = "#0e0e0e";
+})
+
+
 
 // Loader Animation
 function loaderAnimation(){
@@ -168,10 +201,10 @@ function page3Animation(){
     })
     tl2.from(".box",{
         x: -50,
-        duration: 2,
+        duration: 1.5,
         opacity: 0,
-        delay: 0.7,
-        stagger: 0.2,
+        delay: 0.6,
+        stagger: 0.1,
     })
 }
 page3Animation();
@@ -297,7 +330,7 @@ function footerAnimation(){
             scroller: "#main",
             start: "top 70%",
             end: "bottom 40%",
-            markers: true,
+            //markers: true,
             scrub: 2
         }
     });
@@ -340,12 +373,13 @@ function footerAnimation(){
 footerAnimation();
 
 
-// Underline Animation for page3 text, page8 text
+// Underline Animation for page3 text, page5 overlay text, page8 text
 let block1 = document.querySelectorAll("#block1");
 let block2 = document.querySelectorAll("#block2");
 let block3 = document.querySelectorAll("#block3");
 let p3TextH1 = document.querySelectorAll("#page3-text h1");
 let p8TextH1 = document.querySelectorAll("#page8-text h1");
+let p5OverlayTextH1 = document.querySelector("#p5-overlay-text h1");
 
 p3TextH1.forEach((b)=>{
     b.addEventListener('mouseenter',()=>{
@@ -374,6 +408,20 @@ p8TextH1.forEach((b)=>{
             x: 0,
             duration: 0.3,
         })
+    })
+})
+
+p5OverlayTextH1.addEventListener("mouseenter",()=>{
+    gsap.to("#block4",{
+        x: 1200,
+        duration: 0.5,
+    })
+})
+
+p5OverlayTextH1.addEventListener("mouseleave",()=>{
+    gsap.to("#block4",{
+        x: 0,
+        duration: 0.5,
     })
 })
 
@@ -414,33 +462,6 @@ boxes.forEach((box)=>{
     })
 })
 
-let p5Container = document.querySelector("#page5");
-p5Container.addEventListener('mousemove', (event) => {
-    gsap.to("#cursor", {
-        x: event.x - 50,
-        y: event.y - 80,
-    });
-});
-
-p5Container.addEventListener('mouseleave', (event) => {
-    gsap.to("#cursor", {
-        scale: 0,
-        rotate: "30deg",
-        opacity: 0,
-    });
-});
-
-p5Container.addEventListener('mouseenter', (event) => {
-    gsap.to("#cursor", {
-        scale: 1,
-        opacity: 1,
-        rotate: "0deg",
-    });
-
-    cursor.textContent = "Take It!";
-    cursor.style.backgroundColor = "#000";
-});
-
 // Swiper JS
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
@@ -448,3 +469,35 @@ var swiper = new Swiper(".mySwiper", {
     spaceBetween: 20,
     loop: true,
   });
+
+// Page5 open and remove overlay
+let closeButton = document.querySelector("#p5-overlay button");
+let p5Overlay = document.querySelector("#p5-overlay"); 
+
+page5.addEventListener("click", () => {
+    // Reset the x property to 0 before starting the animation
+    gsap.set("#p5-overlay", { x: 0, opacity: 1 });
+
+    gsap.from("#p5-overlay", {
+        x: "-100%",
+        opacity: 0,
+        duration: 2,
+        ease: Power3.InOut,
+        onStart: () => {
+            p5Overlay.style.display = "inline-block";
+        },
+    });
+});
+
+closeButton.addEventListener("click", () => {
+    gsap.to("#p5-overlay", {
+        x: "-100%",
+        opacity: 0,
+        duration: 1.5,
+        ease: Power3.InOut,
+        onComplete: () => {
+            p5Overlay.style.display = "none";
+        },
+    });
+});
+
